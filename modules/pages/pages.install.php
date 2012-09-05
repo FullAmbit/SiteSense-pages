@@ -88,40 +88,20 @@ function pages_install($db,$drop=false,$firstInstall=false,$lang='en_us') {
 	            );
 	        }
 	    }
-		if($db->countRows('pages'.'_'.$lang)==0) {
-			try {
-				echo '
-					<h3>Attempting:</h3>';
-				$db->exec('makeRegistrationAgreement','installer',array('!lang!'=>$lang));
-				echo '
-					<div>
-						Registration Agreement Page Generated!
-					</div><br />
-				';
-			} catch(PDOException $e) {
-				$db->installErrors++;
-				echo '
-					<h2>Failed to create registration agreement!</h2>
-					<pre>'.$e->getMessage().'</pre><br />
-				';
+		if($db->countRows('pages_'.$lang)==0){
+			$pages=array(
+				'makeRegistrationAgreement' => 'Registration Agreement',
+				'makeRegistrationEMail'     => 'Registration Email',
+				'makeHomePage'              => 'Home',
+			);
+			foreach($pages as $queryName=>$humanName){
+				echo '<h3>Attempting:</h3>',PHP_EOL;
+				$db->exec($queryName,'installer',array('!lang!'=>$lang));
+				echo '<div>',$humanName,' page installed!</div><br>',PHP_EOL;
 			}
-			try {
-				echo '
-					<h3>Attempting:</h3>';
-				$db->exec('makeRegistrationEMail','installer',array('!lang!'=>$lang));
-				echo '
-					<div>
-						Registration E-Mail Page Generated!
-					</div><br />
-				';
-			} catch(PDOException $e) {
-				$db->installErrors++;
-				echo '
-					<h2>Failed to create registration E-Mail!</h2>
-					<pre>'.$e->getMessage().'</pre><br />
-				';
-			}
-		} else echo '<p class="exists">"pages database" already contains records</p>';
+		}else{
+			echo '<p class="exists">"pages database" already contains records</p>';
+		}
 	}
 }
 function pages_uninstall($db,$lang='en_us') {

@@ -70,15 +70,8 @@ function pages_buildContent($data,$db) {
 	$statement = $db->prepare('getEnabledSidebarsByPage','pages');
 	$statement->execute(array(':pageId' => $current['id']));
 	$sidebars = $statement->fetchAll();
-	$data->sidebarList = array();
-	$data->usedSidebars = array();
-	foreach ($sidebars as $sidebar) {
-		if (!in_array($sidebar['id'],$usedSidebars)) {
-			common_parseDynamicValues($this, $sidebar['titleUrl'], $db);
-			common_parseDynamicValues($this, $sidebar['parsedContent'], $db);
-			$data->usedSidebars[] = $sidebar['id'];
-			$data->sidebarList[strtolower($sidebar['side'])][]=$sidebar;
-		}
+	if(count($sidebars)>0){
+		$data->sidebarList=$sidebars;
 	}
 }
 function pages_content($data) {

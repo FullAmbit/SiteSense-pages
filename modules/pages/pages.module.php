@@ -23,19 +23,9 @@
 * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
 */
 function pages_getUniqueSettings($data,$db) {
-
 }
 
 function pages_buildContent($data,$db) {
-	if($data->banned) {
-		$statement = $db->prepare('getPagesByShortName','pages');
-		$statement->execute(array(
-			':shortName' => 'banned'
-		));
-		
-		$data->output['pageContent'] = $statement->fetch();
-		return;
-	}
 	$statement = $db->prepare('getPageByShortNameAndParent', 'pages');
 	$current = array('id' => 0); //pseudo-page, root node.
 	$stages = array_filter(array_slice($data->action, 1));

@@ -91,7 +91,7 @@ function admin_pagesBuild($data, $db) {
 
 				$data->output['pageForm']->sendArray[':parsedContent'] = $data->plugins['bbcode']->parse($data->output['pageForm']->sendArray[':rawContent']);
 			} else {
-				$data->output['pageForm']->sendArray[':parsedContent'] = htmlspecialchars($data->output['pageForm']->sendArray[':rawContent']);
+				$data->output['pageForm']->sendArray[':parsedContent'] = htmlentities($data->output['pageForm']->sendArray[':rawContent'],ENT_QUOTES,'UTF-8');
 			}
 
 			if ($data->output['pageForm']->sendArray[':showOnMenu']) {

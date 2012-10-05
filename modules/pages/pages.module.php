@@ -50,7 +50,7 @@ function pages_buildContent($data,$db) {
 		$data->output['pageShortName']= $current['title'];
 		$data->output['pageContent']['children']=$statement->fetchAll();
 		$data->output['pageTitle']=$data->output['pageContent']['title'];
-        $data->output['pageContent']['parsedContent'] = htmlspecialchars_decode($data->output['pageContent']['parsedContent']);
+        $data->output['pageContent']['parsedContent'] = html_entity_decode($data->output['pageContent']['parsedContent'],ENT_QUOTES,'UTF-8');
         common_parseDynamicValues($data,$data->output['pageContent']['parsedContent'],$db);
 	} else if ($data->httpHeaders[0] === 'Content-Type: text/html; charset='.$data->settings['characterEncoding']) {
 		$data->httpHeaders[]='HTTP/1.1 404 Not Found';

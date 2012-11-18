@@ -58,45 +58,31 @@ function admin_pagesBuild($data,$db) {
 		$data->output['abortMessage'] = '<h2>Insufficient User Permissions</h2>You do not have the permissions to access this area.';	
 		return;
 	}
-
 	/* editing an existing from the database */
 	$statement=$db->prepare('getPageById','admin_pages');
 	$statement->execute(array(
 		':id' => $data->action[3]
 	));
 	$data->output['pageItem'] = $item = $statement->fetch();
-	if($item == FALSE)
-	{
+	if($item == FALSE){
 		$data->output['pagesError'] = 'unknown function';
 		return false;
 	}
-	
 	$data->output['pageForm']= $form = new formHandler('addEdit',$data,true);
-		$data->output['pageForm']->caption=$data->phrases['pages']['captionEditPage'].' '.$data->output['pageItem']['title'];
-
+	$data->output['pageForm']->caption=$data->phrases['pages']['captionEditPage'].' '.$data->output['pageItem']['title'];
 	$data->output['pageForm']->fields['parent']['options'] = admin_pageOptions($db);
 	// Unset Main Menu Options
 	unset($form->fields['showOnMenu']);
 	unset($form->fields['menuText']);
 	unset($form->fields['menuParent']);
-	
-	
 	foreach ($data->output['pageForm']->fields as $key => $value) {
-		if ((!empty($value['params']['type'])) && ($value['params']['type']=='checkbox'))
-		{
+		if ((!empty($value['params']['type'])) && ($value['params']['type']=='checkbox')){
 			$data->output['pageForm']->fields[$key]['checked']= ($item[$key] ? 'checked' : '');
 		} else {
 			$data->output['pageForm']->fields[$key]['value']=$item[$key];
 		}
 	}
-	
-	
-	if ((!empty($_POST['fromForm'])) && ($_POST['fromForm']==$data->output['pageForm']->fromForm)) 
-	{
-		/*
-			we came from the form, so repopulate it and set up our
-			sendArray at the same time.
-		*/
+	if ((!empty($_POST['fromForm'])) && ($_POST['fromForm']==$data->output['pageForm']->fromForm)) {
 		$data->output['pageForm']->caption='Editing Page '.$data->action[3];
 		$data->output['pageForm']->populateFromPostData();
 		$shortName = common_generateShortName($data->output['pageForm']->sendArray[':name']);
@@ -104,8 +90,7 @@ function admin_pagesBuild($data,$db) {
 		unset($data->output['pageForm']->fields['name']['cannotEqual']);
 		
 		// Only Run Unique Short Name Check If It's DIFFERENT
-		if($shortName !== $data->output['pageItem']['shortName'])
-		{
+		if($shortName !== $data->output['pageItem']['shortName']){
 			// Check To See If ShortName Exists Anywhere (Across Any Language)
 			if(common_checkUniqueValueAcrossLanguages($data,$db,'pages','id',array('shortName'=>$shortName))){
 				$data->output['pageForm']->fields['name']['error']=true;
@@ -118,8 +103,7 @@ function admin_pagesBuild($data,$db) {
 		    $statement->execute(array(
 		            ':match' => $modifiedShortName,
 		            ':hostname' => ''
-		        )
-		    );
+		    ));
 		    $result=$statement->fetch();
 		    if($result===false) {
 		        $statement=$db->prepare('updateUrlRemapByMatch','admin_urls');
@@ -134,16 +118,12 @@ function admin_pagesBuild($data,$db) {
 		        return;
 		    }
 		}	
-		
-	
 		// Validate Form
 		if ($data->output['pageForm']->validateFromPost()) {
 			if (is_numeric($data->action[3])) {
 				// Parse
-				if($data->settings['useBBCode'] == '1')
-				{
+				if($data->settings['useBBCode'] == '1'){
 					common_loadPlugin($data,'bbcode');
-					
 					$data->output['pageForm']->sendArray[':parsedContent'] = $data->plugins['bbcode']->parse($data->output['pageForm']->sendArray[':rawContent']);
 				} else {
 					$data->output['pageForm']->sendArray[':parsedContent'] = htmlentities($data->output['pageForm']->sendArray[':rawContent'],ENT_QUOTES,'UTF-8');
@@ -164,7 +144,6 @@ function admin_pagesBuild($data,$db) {
 					'live' => $data->output['pageForm']->sendArray[':live']
 				));
 			}
-			
 			$data->output['savedOkMessage']='
 				<h2>Values Saved Successfully</h2>
 				<p>

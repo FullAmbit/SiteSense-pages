@@ -1,6 +1,4 @@
-
 <?php
-
 function languages_pages_admin_en_us(){
 	return array(
 		'core' => array(
@@ -16,14 +14,14 @@ function languages_pages_admin_en_us(){
 		'pageDeleteSuccessMessage'       => 'The page has been deleted. It has affected this many pages: ',
 		'returnToPages'                  => 'Return To Pages',
 		'pageDeleteConfirmHeading'       => 'Are you sure to want to delete this page?',
-		'pageDeleteConfirmMessage'       => '*** WARNING *** This will also delete any child pages',
+		'pageDeleteConfirmMessage'       => 'WARNING: This will also delete any child pages.',
 		'addNewPage'                     => 'Add New Page',
 		'noPagesExist'                   => 'No Pages Exist',
 		'managePagesHeading'             => 'Manage Pages',
 		'addChild'                       => 'Add Child',
 		'manageSidebarsHeading'          => 'Manage Sidebars',
 		'labelAddEditName'               => 'Name',
-		'descriptionAddEditName'         => 'Must be unique. Used for the URL.',
+		'descriptionAddEditName'         => 'Must be unique. Used to generate the URL.',
 		'labelAddEditTitle'              => 'Page Title',
 		'descriptionAddEditTitle'        => 'Used as the content of the heading tag for this text.',
 		'labelAddEditParent'             => 'Parent Page',
@@ -34,8 +32,8 @@ function languages_pages_admin_en_us(){
 		'labelAddEditMenuText'           => 'Menu Text',
 		'descriptionAddEditMenuText'     => 'The text that will appear on the menu item',
 		'labelAddEditRawContent'         => 'Page Content',
-		'descriptionAddEditRawContent'   => 'The actual text that will go inside the automatically generated \'contentBox\'. HTML is allowed in here, though any sub-headings you wish to use should start at H3, since \'Page Title\' is used as the h2.',
-		'labelAddEditLive'               => 'Live',
+		'descriptionAddEditRawContent'   => 'The actual text that will go inside the automatically generated \'contentBox\'. HTML is allowed in here. Make sure that you use appropriately-sized headings for your theme.',
+		'labelAddEditLive'               => 'Live?',
 		'descriptionAddEditLive'         => 'By default new blog entries are hidden from normal users until you check this box or enable them on the blog post list.',
 		'captionAddPage'                 => 'Create New Static Page',
 		'submitAddEditForm'              => 'Save Changes',

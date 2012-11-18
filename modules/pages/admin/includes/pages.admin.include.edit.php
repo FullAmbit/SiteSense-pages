@@ -171,7 +171,7 @@ function admin_pagesBuild($data,$db) {
 					Auto generated short name was: '.$shortName.'
 				</p>
 				<div class="panel buttonList">
-					<a href="'.$data->linkRoot.'admin/pages/edit/new">
+					<a href="'.$data->linkRoot.'admin/pages/add">
 						Add New Page
 					</a>
 					<a href="'.$data->linkRoot.'admin/pages/list/">

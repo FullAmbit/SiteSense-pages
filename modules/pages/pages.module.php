@@ -72,28 +72,10 @@ function pages_content($data) {
 				You attempted to access "', implode('/', array_filter($data->action)), '" which does not exist on this server. Please check the URL and try again. If you feel this is in error, please contact the site administrator.
 			</p>';
 		theme_contentBoxFooter();
-		if(checkPermission('canEnableModules','core',$data) && $data->module !== false && $data->module['enabled'] == 0){
-			theme_contentBoxHeader('Admin Options');
-			echo '
-				<p>
-					This module exists, but is currently disabled (modules require enabling before use).<br />
-					To enable this module, do so <a href="', $data->linkRoot, 'admin/modules/edit/', $data->module['id'], '">on this page in the admin panel</a>
-				</p>';
-			theme_contentBoxFooter();
-		}
 	} else {
 		theme_contentBoxHeader($data->output['pageContent']['title']);
-		
 		echo $data->output['pageContent']['parsedContent'];
 		theme_contentBoxFooter();
-		/*if (!empty($data->output['pageContent']['children'])) {
-			foreach ($data->output['pageContent']['children'] as $item) {
-				common_parseDynamicValues($data,$item['content']);
-				theme_contentBoxHeader($item['title']);
-				echo $item['content'];
-				theme_contentBoxFooter();
-			}
-		}*/
 	}
 }
 ?>

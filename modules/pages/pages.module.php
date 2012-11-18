@@ -22,9 +22,6 @@
 * @copyright  Copyright (c) 2011 Full Ambit Media, LLC (http://www.fullambit.com)
 * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
 */
-function pages_getUniqueSettings($data,$db) {
-}
-
 function pages_buildContent($data,$db) {
 	$statement = $db->prepare('getPageByShortNameAndParent', 'pages');
 	$current = array('id' => 0); //pseudo-page, root node.

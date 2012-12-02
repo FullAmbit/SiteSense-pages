@@ -106,8 +106,9 @@ function admin_pagesBuild($data, $db) {
 						':title' => $title,
 						':url' => 'pages/'.$data->output['pageForm']->sendArray[':shortName'].'/',
 						':enabled' => '1',
-						':parent' => '0',
-						':sortOrder' => $sortOrder
+						':parent' => $data->output['pageForm']->sendArray[':menuParent'],
+						':sortOrder' => $sortOrder,
+						':side' => 'left',
 					));
 				$menuId = $db->lastInsertId();
 				
